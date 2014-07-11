@@ -16,6 +16,6 @@ EclipseなどにImportし、MyApplication.javaを開きRunさせることで実�
 「commmand」+「x」 : 選択されたオブジェクトをcut  
 「commmand」+「c」 : 選択されたオブジェクトをcopy  
 「commmand」+「v」 : 選択されたオブジェクトをpaste  
-「commmand」+「↑」 : 選択されたオブジェクトを上端で揃える
-「commmand」+「←」 : 選択されたオブジェクトを高さ順に揃える
+「commmand」+「↑」 : 選択されたオブジェクトを上端で揃える  
+「commmand」+「←」 : 選択されたオブジェクトを高さ順に揃える  
 「commmand」+「↓」 : 選択されたオブジェクトを下端で揃える
