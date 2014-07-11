@@ -18,4 +18,5 @@ EclipseなどにImportし、MyApplication.javaを開きRunさせることで実�
 「commmand」+「v」 : 選択されたオブジェクトをpaste  
 「commmand」+「↑」 : 選択されたオブジェクトを上端で揃える  
 「commmand」+「←」 : 選択されたオブジェクトを高さ順に揃える  
-「commmand」+「↓」 : 選択されたオブジェクトを下端で揃える
+「commmand」+「↓」 : 選択されたオブジェクトを下端で揃える  
+「delete」 : 選択されたオブジェクトを消去
