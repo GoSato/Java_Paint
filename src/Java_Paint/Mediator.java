@@ -1,33 +1,25 @@
 package Java_Paint;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.ItemEvent;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import javax.swing.JComboBox;
-
-public class Mediator{
+public class Mediator {
 	Vector<MyDrawing> drawings;
 	MyCanvas canvas;
-	public Vector<MyDrawing> selectedDrawings = null;
+	Vector<MyDrawing> selectedDrawings = null;
+
 	Vector<MyDrawing> buffer = null;
 	boolean shadow = false;
 	boolean linePattern = false;
 	boolean shift = false;
 	MyDrawing select = null;
-	MyArea area;
 
 	public Mediator(MyCanvas canvas){
 		this.canvas = canvas;
 		drawings = new Vector<MyDrawing>();
 		selectedDrawings = new Vector<MyDrawing>();
-		area = new MyArea();
 	}
 
 	public Enumeration<MyDrawing> drawingsElements(){
@@ -112,7 +104,6 @@ public class Mediator{
 			}
 		}
 	}
-	
 	public void setLineColor(Color color1){
 		if(selectedDrawings.size() != 0){
 			for(int i=0;i<selectedDrawings.size();i++){
@@ -131,6 +122,7 @@ public class Mediator{
 
 	//shadowはboolean型	
 	public void dropCheck(int stateChange) {
+
 		if(stateChange == ItemEvent.SELECTED){
 			shadow = true;
 		}else{
@@ -154,6 +146,7 @@ public class Mediator{
 			}
 		}
 	}	
+
 
 	//cut & copy & paste 
 	public void clearBuffer(){
@@ -191,6 +184,7 @@ public class Mediator{
 			addDrawing(clone.elementAt(i));
 		}
 		resetSelectd();
+		//setSelectedDrawing(clone);
 		canvas.repaint();	
 	}
 
@@ -210,6 +204,7 @@ public class Mediator{
 	public void underline() {
 		if(selectedDrawings.size() != 0){
 			for(int i=0;i<selectedDrawings.size();i++){
+
 				selectedDrawings.elementAt(i).move(selectedDrawings.elementAt(i).getX(), 400 - selectedDrawings.elementAt(i).getH());
 			}
 		}
@@ -228,8 +223,8 @@ public class Mediator{
 			for(int i=0;i<selectedDrawings.size();i++){
 				for(int j=i+1;j<selectedDrawings.size();j++){
 					if(selectedDrawings.elementAt(i).getH() < selectedDrawings.elementAt(j).getH()){
-						buffer = selectedDrawings.elementAt(i);
 						
+						buffer = selectedDrawings.elementAt(i);
 						selectedDrawings.removeElementAt(i);
 						selectedDrawings.insertElementAt(selectedDrawings.elementAt(j-1), i);
 						selectedDrawings.removeElementAt(j);
@@ -245,21 +240,9 @@ public class Mediator{
 		canvas.repaint();	
 	}
 
-	//未使用(整列に)
 	public void sizeline1() {
 
 	}
 
 
-	public void add(State state) {
-		area.add(selectedDrawings,state);
-	}
-
-	public void setAlfa(double d) {
-		if(selectedDrawings.size() != 0){
-			for(int i=0;i<selectedDrawings.size();i++){
-				selectedDrawings.elementAt(i).setAlfa(d);
-			}
-		}
-	}
 }

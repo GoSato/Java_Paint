@@ -12,15 +12,12 @@ import java.awt.event.KeyListener;
 
 public class MyCanvas extends JPanel{
 	Mediator mediator;
-	State state;
 	StateManager stateManager;
-	MyArea area;
 	
 	public MyCanvas(){
 		setFocusable(true);
 		this.addKeyListener(new actionKeyListener());
 		this.mediator = new Mediator(this);
-		this.area = new MyArea();
 		setBackground(Color.white);	
 	}
 	
@@ -59,10 +56,6 @@ public class MyCanvas extends JPanel{
 			if(e.getModifiersEx() == InputEvent.META_DOWN_MASK && e.getKeyCode() == KeyEvent.VK_V){
 				mediator.paste();
 			}
-			//if(e.getModifiersEx() == InputEvent.META_DOWN_MASK && e.getKeyCode() == KeyEvent.VK_A){
-				//state = stateManager.getState();
-				//mediator.add(state);
-			//}
 			if(e.getModifiersEx() == InputEvent.META_DOWN_MASK && e.getKeyCode() == KeyEvent.VK_UP){
 				mediator.topline();
 			}

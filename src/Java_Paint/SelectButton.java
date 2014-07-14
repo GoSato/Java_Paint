@@ -61,7 +61,7 @@ public class SelectButton extends JButton{
 
 			x2 = x;
 			y2 = y;
-
+			
 			for(int i=0;i<stateManager.mediator.selectedDrawings.size();i++){
 				stateManager.mediator.selectedDrawings.elementAt(i).move(x0[i] + x2 - x1, y0[i] + y2 - y1);
 			}
