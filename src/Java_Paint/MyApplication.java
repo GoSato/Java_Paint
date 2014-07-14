@@ -17,29 +17,30 @@ public class MyApplication extends JFrame implements ActionListener{
 	JComboBox lineChoice;
 	JComboBox fillColor;
 	JComboBox lineColor;
-	
+	JComboBox alfaChoice;
+	JComboBox actionChoice;
+
 	MyRectangle selectRectangle;
 
 	private JMenuBar menuBar;
 	private JMenu colorMenu;
 	private JMenuItem redItem,blueItem,greenItem;
-	
+
 	Mediator med;
-	
+
 	public MyApplication(){
-		
+
 		super("My Paint Application");
-		
+
 		canvas = new MyCanvas();
 		canvas.setBackground(Color.white);
 		med = canvas.getMediator();
-		
+
 		JPanel jp = new JPanel();
 		jp.setLayout(new FlowLayout());
-		//getContentPane().add(jp);
-		
+
 		stateManager = new StateManager(canvas);
-		
+
 		RectButton rectButton = new RectButton(stateManager);
 		jp.add(rectButton);
 		OvalButton ovalButton = new OvalButton(stateManager);
@@ -47,10 +48,10 @@ public class MyApplication extends JFrame implements ActionListener{
 		/*
 	 	DiamondButton diamondButton = new DiamondButton(stateManager);
 		jp.add(diamondButton);
-		*/
+		 */
 		TriangleButton triangleButton = new TriangleButton(stateManager);
 		jp.add(triangleButton);
-		
+
 		SelectButton selectButton = new SelectButton(stateManager);
 		jp.add(selectButton);
 
@@ -58,77 +59,83 @@ public class MyApplication extends JFrame implements ActionListener{
 		JCheckBox dropCheck = new JCheckBox("drop shadow");
 		dropCheck.addItemListener(new DropCheckListener());
 		jp.add(dropCheck);
-		
+
 		JCheckBox breakCheck = new JCheckBox("break line");
 		breakCheck.addItemListener(new BreakCheckListener());
 		jp.add(breakCheck);
-		
+
 		/****線の種類を変更****/
-		//JLabel label1 = new JLabel("set lineWidth:");
-		//jp.add(label1);
 		String[] LW = {"1", "2", "3"};
 		JComboBox lwChoice = new JComboBox(LW);
 		jp.add(lwChoice);
 		lwChoice.addActionListener(this);
 		lineChoice = lwChoice;
-		
+
 		String[] Fill = {"Red","Blue","Green","OtherColor"};
 		JComboBox FillChoice = new JComboBox(Fill);
 		fillColor = FillChoice;
 		FillChoice.addActionListener(new FillColorListener());
 		jp.add(new JLabel("fill:"));
 		jp.add(FillChoice);
-		
+
 		String[] Line = {"Red","Blue","Green","OtherColor"};
 		JComboBox LineChoice = new JComboBox(Line);
 		lineColor = LineChoice;
 		LineChoice.addActionListener(new LineColorListener());
 		jp.add(new JLabel("line:"));
 		jp.add(LineChoice);
-		
+
+		//透明度
+		String[] alfa = {"10","30","60","100"};
+		JComboBox AlfaChoice = new JComboBox(alfa);
+		alfaChoice = AlfaChoice;
+		AlfaChoice.addActionListener(new AlfaListener());
+		jp.add(new JLabel("alfa:"));
+		jp.add(AlfaChoice);
+
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(jp, BorderLayout.NORTH);
 		getContentPane().add(canvas, BorderLayout.CENTER);
-		
+
 		canvas.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				canvas.requestFocusInWindow();
 				stateManager.mouseDown(e.getX(), e.getY());
 			}
-			
+
 			public void mouseReleased(MouseEvent e){
 				canvas.requestFocusInWindow();
 				stateManager.mouseUp(e.getX(), e.getY());
 			}
 		});
-		
+
 		canvas.addMouseMotionListener(new MouseMotionAdapter(){
 			public void mouseDragged(MouseEvent e){
 				canvas.requestFocusInWindow();
 				stateManager.mouseDrag(e.getX(), e.getY());
 			}
 		});
-		
+
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
 				System.exit(0);
 			}
 		});
-		
-	}
-	
 
-	
-	public Dimension getPreferredSize(){
-		return new Dimension(1000,700);
 	}
-	
+
+
+
+	public Dimension getPreferredSize(){
+		return new Dimension(1300,700);
+	}
+
 	public static void main(String[] args){
 		MyApplication app = new MyApplication();
 		app.pack();
 		app.setVisible(true);
 	}
-	
+
 	//影用
 	class DropCheckListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e){
@@ -136,7 +143,7 @@ public class MyApplication extends JFrame implements ActionListener{
 			med.repaint();
 		}
 	}
-	
+
 	//破線用
 	class BreakCheckListener implements ItemListener{
 		public void itemStateChanged(ItemEvent e){
@@ -144,20 +151,20 @@ public class MyApplication extends JFrame implements ActionListener{
 			med.repaint();
 		}
 	}
-	
+
 	//線の太さ
 	public void actionPerformed(ActionEvent e) {	
 		int lw = Integer.parseInt((String)lineChoice.getSelectedItem());
 		med.lineChoice(lw);
 		canvas.repaint();
 	}
-	
+
 	//塗り色
 	class FillColorListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-		
+
 			Color fillcolor;
-			
+
 			if("Red".equals((String)fillColor.getSelectedItem())){
 				med.setFillColor(Color.red);
 			}
@@ -175,13 +182,13 @@ public class MyApplication extends JFrame implements ActionListener{
 			canvas.repaint();
 		}
 	}
-	
+
 	//線色
 	class LineColorListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-		
+
 			Color linecolor;
-			
+
 			if("Red".equals((String)lineColor.getSelectedItem())){
 				med.setLineColor(Color.red);
 			}
@@ -199,7 +206,28 @@ public class MyApplication extends JFrame implements ActionListener{
 			canvas.repaint();
 		}
 	}
-}
 
+	//透明度
+	class AlfaListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			
+			if("10".equals((String)alfaChoice.getSelectedItem())){
+				med.setAlfa(0.1);
+			}
+			if("30".equals((String)alfaChoice.getSelectedItem())){
+				med.setAlfa(0.3);
+			}
+			if("60".equals((String)alfaChoice.getSelectedItem())){
+				med.setAlfa(0.6);
+			}
+			if("100".equals((String)alfaChoice.getSelectedItem())){
+				med.setAlfa(1);
+			}
+			
+			canvas.repaint();
+		}
+	}
+
+}
 
 

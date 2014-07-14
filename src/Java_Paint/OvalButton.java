@@ -27,6 +27,7 @@ public class OvalButton extends JButton{
 	public static class OvalState extends State{
 		int x1, y1;
 		MyOval oval;
+		//MyArea area;
 		StateManager stateManager;
 		
 		public OvalState(StateManager stateManager){
@@ -35,11 +36,13 @@ public class OvalButton extends JButton{
 		
 		public void mouseDown(int x, int y){
 			oval = new MyOval(x, y, 0, 0);
+			//area = new MyArea();
 			x1 = x;
 			y1 = y;
 			
 			oval.setLinePattern(stateManager.linePattern);
 			stateManager.addDrawing(oval);
+			//stateManager.addDrawing(area);
 		}
 		
 		public void mouseUp(int x, int y){

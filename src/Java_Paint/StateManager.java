@@ -42,7 +42,7 @@ public class StateManager {
 		state.mouseUp(x3, y3);
 	}
 
-//	public void lineChoice(int lineWidth){
-//		this.lineWidth = lineWidth;
-//	}
+	public State getState() {
+		return state;
+	}
 }

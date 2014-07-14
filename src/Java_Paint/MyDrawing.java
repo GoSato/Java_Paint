@@ -1,15 +1,17 @@
 package Java_Paint;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
-public class MyDrawing implements Cloneable{
+public class MyDrawing implements Cloneable {
 	private int x, y, w, h;
 	private Color lineColor, fillColor;
 	private int lineWidth;
 	private int Size;
+	private double alfa;
 	
 	boolean isSelected;
 	Shape region;
@@ -22,6 +24,7 @@ public class MyDrawing implements Cloneable{
 	public MyDrawing(){
 		x = y = 0;
 		w = h = 0;
+		alfa = 1;
 		lineColor = Color.black;
 		fillColor = Color.white;
 		lineWidth = 1;
@@ -154,4 +157,14 @@ public class MyDrawing implements Cloneable{
 			return null;
 		}
 	}
+
+	public void setAlfa(double d) {
+		// TODO Auto-generated method stub
+		this.alfa = d;
+	}
+	
+	public double getAlfa(){
+		return alfa;
+	}
+
 }
