@@ -252,7 +252,7 @@ public class Mediator{
 
 
 	public void add(State state) {
-		area.add(selectedDrawings,state);
+		//area.add(selectedDrawings,state);
 	}
 
 	public void setAlfa(double d) {
@@ -261,5 +261,12 @@ public class Mediator{
 				selectedDrawings.elementAt(i).setAlfa(d);
 			}
 		}
+	}
+	
+	//重なり変更用
+	public void ChangeOverlap(){		
+		drawings.insertElementAt(selectedDrawings.elementAt(0), drawings.size());
+		removeDrawing(selectedDrawings.elementAt(0));
+		canvas.repaint();
 	}
 }

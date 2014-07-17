@@ -10,6 +10,8 @@ import java.awt.Color;
 
 import javax.swing.JColorChooser;
 
+import Java_Paint.RectButton.RectState;
+
 public class MyApplication extends JFrame implements ActionListener{
 	StateManager stateManager;
 	MyCanvas canvas;
@@ -92,6 +94,11 @@ public class MyApplication extends JFrame implements ActionListener{
 		AlfaChoice.addActionListener(new AlfaListener());
 		jp.add(new JLabel("alfa:"));
 		jp.add(AlfaChoice);
+
+		//重なり用
+		JButton overlap = new JButton("OverLap");
+		overlap.addActionListener(new OverlapCheckListener());
+		jp.add(overlap);
 
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(jp, BorderLayout.NORTH);
@@ -210,7 +217,7 @@ public class MyApplication extends JFrame implements ActionListener{
 	//透明度
 	class AlfaListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
+
 			if("10".equals((String)alfaChoice.getSelectedItem())){
 				med.setAlfa(0.1);
 			}
@@ -223,8 +230,16 @@ public class MyApplication extends JFrame implements ActionListener{
 			if("100".equals((String)alfaChoice.getSelectedItem())){
 				med.setAlfa(1);
 			}
-			
+
 			canvas.repaint();
+		}
+	}
+
+	//重なり変更用
+	class OverlapCheckListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			med.ChangeOverlap();
+			med.repaint();
 		}
 	}
 
